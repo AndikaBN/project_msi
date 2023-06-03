@@ -1070,7 +1070,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                height: 500.0,
                 decoration: const BoxDecoration(
                   color: Color(0xFFF2F6FF),
                   borderRadius: BorderRadius.all(
@@ -1079,7 +1078,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                child: SizedBox(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 100, right: 100, top: 70),
                   child: Column(
                     children: [
                       Row(
@@ -1170,7 +1171,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     "Home",
                                     style: GoogleFonts.raleway(
                                       fontSize: 20,
-                                      color: const Color(0xFF858585),
+                                      color: _isHomeHovered
+                                          ? Colors.black
+                                          : Color(0xFF858585),
                                       fontWeight: _isHomeHovered
                                           ? FontWeight.bold
                                           : FontWeight.w600,
@@ -1189,7 +1192,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     "Popular",
                                     style: GoogleFonts.raleway(
                                       fontSize: 20,
-                                      color: const Color(0xFF858585),
+                                      color: _isPopularHovered
+                                          ? Colors.black
+                                          : Color(0xFF858585),
                                       fontWeight: _isPopularHovered
                                           ? FontWeight.bold
                                           : FontWeight.w600,
@@ -1208,7 +1213,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     "Contact Us",
                                     style: GoogleFonts.raleway(
                                       fontSize: 20,
-                                      color: const Color(0xFF858585),
+                                      color: _isContactHovered
+                                          ? Colors.black
+                                          : Color(0xFF858585),
                                       fontWeight: _isContactHovered
                                           ? FontWeight.bold
                                           : FontWeight.w600,
@@ -1216,6 +1223,78 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 30.0,
+                          ),
+                          SizedBox(
+                            height: 300,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Kontak",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 11.0,
+                                ),
+                                Text(
+                                  "wtc@gmail.com",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 20,
+                                    color: Color(0xFF858585),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  "085931492003",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 20,
+                                    color: Color(0xFF858585),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  "00544-222-22",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 20,
+                                    color: Color(0xFF858585),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 50.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 300.0,
+                            height: 50,
+                            color: Color(0xFFF2F6FF),
+                          ),
+                          Container(
+                            width: 400,
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "All Reserved by WTC Copyright 2023",
+                            style: GoogleFonts.raleway(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
