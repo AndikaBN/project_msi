@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:project_msi/models/restaurant_food.dart';
 import 'package:project_msi/services/drink_service.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,30 +53,35 @@ class _GridViewMenuState extends State<GridViewMenu> {
           padding: const EdgeInsets.only(top: 50, left: 60, right: 60),
           child: Column(
             children: [
-              Container(
-                height: 600.0,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(
-                      40.0,
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  height: 600.0,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(
+                        40.0,
+                      ),
+                    ),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/image/populer2.png",
+                      ),
+                      fit: BoxFit.cover,
+                      colorFilter:
+                          ColorFilter.mode(Colors.black45, BlendMode.darken),
                     ),
                   ),
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/image/populer2.png",
-                    ),
-                    fit: BoxFit.cover,
-                    colorFilter:
-                        ColorFilter.mode(Colors.black45, BlendMode.darken),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Restoran List",
-                    style: GoogleFonts.raleway(
-                      fontSize: 96,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
+                  child: Center(
+                    child: Text(
+                      "Restoran List",
+                      style: GoogleFonts.raleway(
+                        fontSize: 96,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),

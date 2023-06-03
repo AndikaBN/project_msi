@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_msi/Home/widgets/main_menu.dart';
+import 'package:project_msi/Home/widgets/tour_menu.dart';
+
+import 'widgets/room_menu.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -391,7 +394,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MenuRoom()),
+                            );
+                          },
                           child: Card(
                             child: Column(
                               children: [
@@ -577,7 +586,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TourMenu()),
+                            );
+                          },
                           child: Card(
                             child: Column(
                               children: [
