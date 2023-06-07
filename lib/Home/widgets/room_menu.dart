@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:project_msi/Home/widgets/detail/room_detail.dart';
+
 class Room {
   final int id_room;
   final String class_room;
@@ -144,7 +146,12 @@ class _MenuRoomState extends State<MenuRoom> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 40),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                    );
+                                  },
                                   child: Card(
                                     child: Column(
                                       children: [
@@ -277,7 +284,12 @@ class _MenuRoomState extends State<MenuRoom> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 40),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                    );
+                                  },
                                   child: Card(
                                     child: Column(
                                       children: [
@@ -410,7 +422,12 @@ class _MenuRoomState extends State<MenuRoom> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 40),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                    );
+                                  },
                                   child: Card(
                                     child: Column(
                                       children: [
