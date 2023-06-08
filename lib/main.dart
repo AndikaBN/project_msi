@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'Home/home_page.dart';
-import 'Home/widgets/detail/room_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DetailRoom(),
+      home: MyHomePage(),
     );
   }
 }

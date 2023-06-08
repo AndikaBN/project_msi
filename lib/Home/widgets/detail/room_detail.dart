@@ -1,10 +1,13 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
 
+import '../room_menu.dart';
+
 class DetailRoom extends StatefulWidget {
-  const DetailRoom({Key? key}) : super(key: key);
+  final Room room;
+
+  const DetailRoom({Key? key, required this.room}) : super(key: key);
 
   @override
   State<DetailRoom> createState() => _DetailRoomState();
@@ -18,6 +21,7 @@ class _DetailRoomState extends State<DetailRoom> {
         child: Padding(
           padding: const EdgeInsets.only(top: 50, left: 60, right: 60),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InkWell(
                 onTap: () {
@@ -25,24 +29,22 @@ class _DetailRoomState extends State<DetailRoom> {
                 },
                 child: Container(
                   height: 600.0,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(
-                        40.0,
-                      ),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(40.0),
                     ),
                     image: DecorationImage(
                       image: AssetImage(
-                        "assets/image/populer1.png",
+                        "assets/kamar/${widget.room.image}",
                       ),
                       fit: BoxFit.cover,
-                      colorFilter:
-                          ColorFilter.mode(Colors.black45, BlendMode.darken),
+                      colorFilter: const ColorFilter.mode(
+                          Colors.black45, BlendMode.darken),
                     ),
                   ),
                   child: Center(
                     child: Text(
-                      "Detail",
+                      widget.room.room_type,
                       style: GoogleFonts.raleway(
                         fontSize: 96,
                         color: Colors.white,
@@ -50,6 +52,114 @@ class _DetailRoomState extends State<DetailRoom> {
                       ),
                     ),
                   ),
+                ),
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+              Row(
+                children: [
+                  Text(
+                    "Detail ${widget.room.room_class} - ${widget.room.room_type}",
+                    style: GoogleFonts.raleway(
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Container(
+                    height: 1,
+                    width: 470,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                widget.room.detail_room,
+                style: GoogleFonts.inter(
+                    fontSize: 24.0, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                'Sementara itu, untuk kamar ini dipatok dengan harga sekitar Rp ${widget.room.price} per malam.',
+                style: GoogleFonts.inter(
+                    fontSize: 24.0, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 50.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 290.0,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          "assets/detailroom/${widget.room.detail1}",
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 290.0,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          "assets/detailroom/${widget.room.detail2}",
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 290.0,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(16.0),
+                      ),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          "assets/detailroom/${widget.room.detail3}",
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Container(
+                height: 72,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(12.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey,
+                  ),
+                  onPressed: () {},
+                  child: const Text("Pesan Sekarang"),
                 ),
               ),
             ],

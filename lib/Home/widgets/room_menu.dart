@@ -7,26 +7,36 @@ import 'dart:convert';
 import 'package:project_msi/Home/widgets/detail/room_detail.dart';
 
 class Room {
-  final int id_room;
-  final String class_room;
-  final String room_type;
-  final String image;
+  final String room_class;
   final String price;
+  final String image;
+  final String room_type;
+  final String detail_room;
+  final String detail1;
+  final String detail2;
+  final String detail3;
 
-  Room(
-      {required this.id_room,
-      required this.class_room,
-      required this.room_type,
-      required this.image,
-      required this.price});
+  Room({
+    required this.room_class,
+    required this.image,
+    required this.price,
+    required this.room_type,
+    required this.detail_room,
+    required this.detail1,
+    required this.detail2,
+    required this.detail3,
+  });
 
   factory Room.fromJson(Map<String, dynamic> json) {
     return Room(
-      id_room: json['id_room'],
-      class_room: json['class_room'],
-      room_type: json['room_type'],
+      room_class: json['room_class'],
       image: json['image'],
       price: json['price'],
+      room_type: json['room_type'],
+      detail_room: json['detail_room'],
+      detail1: json['detail1'],
+      detail2: json['detail2'],
+      detail3: json['detail3'],
     );
   }
 }
@@ -57,9 +67,11 @@ class _MenuRoomState extends State<MenuRoom> {
   @override
   void initState() {
     super.initState();
-    standartRooms = ApiRoom.fetchRooms('http://localhost:3000/room/standart');
-    mediumRooms = ApiRoom.fetchRooms('http://localhost:3000/room/medium');
-    vipRooms = ApiRoom.fetchRooms('http://localhost:3000/room/vip');
+    standartRooms =
+        ApiRoom.fetchRooms('http://localhost:3000/room/detail/standart');
+    mediumRooms =
+        ApiRoom.fetchRooms('http://localhost:3000/room/detail/medium');
+    vipRooms = ApiRoom.fetchRooms('http://localhost:3000/room/detail/vip');
   }
 
   Widget build(BuildContext context) {
@@ -148,8 +160,10 @@ class _MenuRoomState extends State<MenuRoom> {
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailRoom(room: room)),
                                     );
                                   },
                                   child: Card(
@@ -187,8 +201,8 @@ class _MenuRoomState extends State<MenuRoom> {
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                            vertical: 2,
+                                            horizontal: 2,
+                                            vertical: 10,
                                           ),
                                           child: Row(
                                             children: [
@@ -210,21 +224,6 @@ class _MenuRoomState extends State<MenuRoom> {
                                                 ),
                                               ),
                                             ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 8.0,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                          ),
-                                          child: Text(
-                                            room.room_type,
-                                            style: GoogleFonts.inter(
-                                              color: const Color(0xFF6A6A6A),
-                                              fontSize: 12,
-                                            ),
                                           ),
                                         ),
                                       ],
@@ -286,8 +285,10 @@ class _MenuRoomState extends State<MenuRoom> {
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailRoom(room: room)),
                                     );
                                   },
                                   child: Card(
@@ -393,7 +394,7 @@ class _MenuRoomState extends State<MenuRoom> {
                         Row(
                           children: [
                             Text(
-                              "Medium Room",
+                              "VIP Room",
                               style: GoogleFonts.raleway(
                                 fontSize: 40.0,
                                 fontWeight: FontWeight.w700,
@@ -424,8 +425,10 @@ class _MenuRoomState extends State<MenuRoom> {
                                 child: InkWell(
                                   onTap: () {
                                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => DetailRoom()),
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailRoom(room: room)),
                                     );
                                   },
                                   child: Card(

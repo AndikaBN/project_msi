@@ -1044,8 +1044,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     });
                                   },
                                   child: Container(
-                                    width: _isContainerHover ? 240 : 220,
-                                    height: _isContainerHover ? 80 : 70,
+                                    width: 220,
+                                    height: 70,
                                     decoration: BoxDecoration(
                                       color: _isContainerHover
                                           ? Colors.blueGrey
@@ -1057,11 +1057,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Color(0x19000000),
+                                          color: Color.fromARGB(22, 0, 0, 0),
                                           blurRadius: 24,
-                                          offset: Offset(0, 11),
+                                          offset: Offset(6, 11),
                                         ),
                                       ],
+                                      border: Border.all(
+                                        width: 2.0,
+                                        color: _isContainerHover
+                                            ? Color(0xFF1F50D1)
+                                            : Color.fromARGB(
+                                                255, 255, 255, 255),
+                                      ),
                                     ),
                                     child: Center(
                                       child: Text(
