@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
 
@@ -97,55 +98,35 @@ class _DetailRoomState extends State<DetailRoom> {
               const SizedBox(
                 height: 50.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 290.0,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/detailroom/${widget.room.detail1}",
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 500.0,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                ),
+                items: [
+                  "assets/detailroom/${widget.room.detail1}",
+                  "assets/detailroom/${widget.room.detail2}",
+                  "assets/detailroom/${widget.room.detail3}",
+                ].map((imageUrl) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16.0),
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage(imageUrl),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 290.0,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/detailroom/${widget.room.detail2}",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 290.0,
-                    width: 350,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(16.0),
-                      ),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/detailroom/${widget.room.detail3}",
-                        ),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ],
+                      );
+                    },
+                  );
+                }).toList(),
               ),
               const SizedBox(
                 height: 30.0,
