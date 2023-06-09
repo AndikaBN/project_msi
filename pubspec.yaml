@@ -71,6 +71,7 @@ flutter:
     - assets/kamar/
     - assets/drinks/
     - assets/detailroom/
+    - assets/tour/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

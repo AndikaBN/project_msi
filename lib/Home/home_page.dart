@@ -590,7 +590,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const TourMenu()),
+                                  builder: (context) => const TourMenuPage()),
                             );
                           },
                           child: Card(
