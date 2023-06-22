@@ -431,7 +431,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 2),
+                                      horizontal: 12, vertical: 12),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -528,7 +528,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 2),
+                                      horizontal: 12, vertical: 12),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -623,7 +623,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 2),
+                                      horizontal: 12, vertical: 12),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1334,4 +1334,3 @@ class _MyHomePageState extends State<MyHomePage> {
 
   raleway({required double fontSize}) {}
 }
-

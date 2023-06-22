@@ -1,26 +1,29 @@
-// ignore_for_file: camel_case_types, prefer_typing_uninitialized_variables
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'package:project_msi/Home/widgets/detail/room_detail.dart';
 
 class Room {
+  final String code_room;
   final String room_class;
-  final String price;
-  final String image;
   final String room_type;
+  final String image;
+  final String price;
   final String detail_room;
   final String detail1;
   final String detail2;
   final String detail3;
 
   Room({
+    required this.code_room,
     required this.room_class,
+    required this.room_type,
     required this.image,
     required this.price,
-    required this.room_type,
     required this.detail_room,
     required this.detail1,
     required this.detail2,
@@ -32,6 +35,7 @@ class Room {
       room_class: json['room_class'],
       image: json['image'],
       price: json['price'],
+      code_room: json['code_room'],
       room_type: json['room_type'],
       detail_room: json['detail_room'],
       detail1: json['detail1'],
@@ -39,6 +43,12 @@ class Room {
       detail3: json['detail3'],
     );
   }
+  
+  String getFormattedPrice() {
+  final formatCurrency = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ');
+  return formatCurrency.format(price);
+}
+  
 }
 
 class ApiRoom {
@@ -67,11 +77,9 @@ class _MenuRoomState extends State<MenuRoom> {
   @override
   void initState() {
     super.initState();
-    standartRooms =
-        ApiRoom.fetchRooms('http://localhost:3000/room/detail/standart');
-    mediumRooms =
-        ApiRoom.fetchRooms('http://localhost:3000/room/detail/medium');
-    vipRooms = ApiRoom.fetchRooms('http://localhost:3000/room/detail/vip');
+    standartRooms = ApiRoom.fetchRooms('http://localhost:3000/room/standard');
+    mediumRooms = ApiRoom.fetchRooms('http://localhost:3000/room/medium');
+    vipRooms = ApiRoom.fetchRooms('http://localhost:3000/room/vip');
   }
 
   Widget build(BuildContext context) {
@@ -114,7 +122,7 @@ class _MenuRoomState extends State<MenuRoom> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 50.0),
               FutureBuilder(
                 future: standartRooms,
                 builder: (context, AsyncSnapshot<List<Room>> snapshot) {
@@ -150,89 +158,84 @@ class _MenuRoomState extends State<MenuRoom> {
                         const SizedBox(
                           height: 50.0,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: standartRoomList.map((room) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailRoom(room: room)),
-                                    );
-                                  },
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 300,
-                                          height: 200,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0x19000000),
-                                                blurRadius: 24,
-                                                offset: const Offset(0, 11),
-                                              ),
-                                            ],
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            child: Image.asset(
-                                              "assets/kamar/${room.image}",
-                                              fit: BoxFit.cover,
-                                              alignment: Alignment.center,
-                                            ),
-                                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: standartRoomList.map((room) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailRoom(room: room)),
+                                );
+                              },
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 2,
-                                            vertical: 10,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0x19000000),
+                                            blurRadius: 24,
+                                            offset: const Offset(0, 11),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                room.room_type,
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 13.0,
-                                              ),
-                                              Text(
-                                                'Rp. ${room.price}',
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                      ],
+                                        child: Image.asset(
+                                          "assets/kamar/${room.image}",
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 2,
+                                        vertical: 10,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            room.room_type,
+                                            style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 100,
+                                          ),
+                                          Text(
+                                            room.code_room,
+                                            style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ],
                     );
@@ -275,104 +278,84 @@ class _MenuRoomState extends State<MenuRoom> {
                         const SizedBox(
                           height: 50.0,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: mediumRoomList.map((room) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailRoom(room: room)),
-                                    );
-                                  },
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 300,
-                                          height: 200,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0x19000000),
-                                                blurRadius: 24,
-                                                offset: const Offset(0, 11),
-                                              ),
-                                            ],
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            child: Image.asset(
-                                              "assets/kamar/${room.image}",
-                                              fit: BoxFit.cover,
-                                              alignment: Alignment.center,
-                                            ),
-                                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: mediumRoomList.map((room) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailRoom(room: room)),
+                                );
+                              },
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                            vertical: 2,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0x19000000),
+                                            blurRadius: 24,
+                                            offset: const Offset(0, 11),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                room.room_type,
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 13.0,
-                                              ),
-                                              Text(
-                                                'Rp. ${room.price}',
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                        const SizedBox(
-                                          height: 8.0,
+                                        child: Image.asset(
+                                          "assets/kamar/${room.image}",
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                          ),
-                                          child: Text(
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 2,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
                                             room.room_type,
                                             style: GoogleFonts.inter(
-                                              color: const Color(0xFF6A6A6A),
-                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          const SizedBox(
+                                            width: 100,
+                                          ),
+                                          Text(
+                                            room.code_room,
+                                            style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      height: 10.0,
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ],
                     );
@@ -415,104 +398,84 @@ class _MenuRoomState extends State<MenuRoom> {
                         const SizedBox(
                           height: 50.0,
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: vipRoomList.map((room) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 40),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailRoom(room: room)),
-                                    );
-                                  },
-                                  child: Card(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 300,
-                                          height: 200,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: const Color(0x19000000),
-                                                blurRadius: 24,
-                                                offset: const Offset(0, 11),
-                                              ),
-                                            ],
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            child: Image.asset(
-                                              "assets/kamar/${room.image}",
-                                              fit: BoxFit.cover,
-                                              alignment: Alignment.center,
-                                            ),
-                                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: vipRoomList.map((room) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailRoom(room: room)),
+                                );
+                              },
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: 300,
+                                      height: 200,
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                            vertical: 2,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: const Color(0x19000000),
+                                            blurRadius: 24,
+                                            offset: const Offset(0, 11),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                room.room_type,
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                width: 13.0,
-                                              ),
-                                              Text(
-                                                'Rp. ${room.price}',
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(10),
+                                          topRight: Radius.circular(10),
                                         ),
-                                        const SizedBox(
-                                          height: 8.0,
+                                        child: Image.asset(
+                                          "assets/kamar/${room.image}",
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                          ),
-                                          child: Text(
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 2,
+                                        vertical: 2,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
                                             room.room_type,
                                             style: GoogleFonts.inter(
-                                              color: const Color(0xFF6A6A6A),
-                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          const SizedBox(
+                                            width: 100,
+                                          ),
+                                          Text(
+                                            room.code_room,
+                                            style: GoogleFonts.inter(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            );
+                          }).toList(),
                         ),
                       ],
                     );

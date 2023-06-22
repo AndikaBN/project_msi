@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-// ignore: depend_on_referenced_packages
+
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../room_menu.dart';
+import 'order_form.dart';
 
 class DetailRoom extends StatefulWidget {
   final Room room;
-
   const DetailRoom({Key? key, required this.room}) : super(key: key);
-
   @override
   State<DetailRoom> createState() => _DetailRoomState();
 }
@@ -85,7 +85,7 @@ class _DetailRoomState extends State<DetailRoom> {
               Text(
                 widget.room.detail_room,
                 style: GoogleFonts.inter(
-                    fontSize: 24.0, fontWeight: FontWeight.w600),
+                    fontSize: 24.0, fontWeight: FontWeight.w400),
               ),
               const SizedBox(
                 height: 10.0,
@@ -136,11 +136,22 @@ class _DetailRoomState extends State<DetailRoom> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(12.0),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderForm(room: widget.room),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.shopping_cart),
+                      const SizedBox(width: 8.0),
+                      const Text("Pesan Sekarang"),
+                    ],
                   ),
-                  onPressed: () {},
-                  child: const Text("Pesan Sekarang"),
                 ),
               ),
             ],

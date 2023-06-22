@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:project_msi/models/restaurant_food.dart';
+
+import 'package:project_msi/services/food_service.dart';
 import 'package:project_msi/services/drink_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../models/resturant_drinks.dart';
-import '../../services/food_service.dart';
+import 'detail/order_food.dart';
 
 class GridViewMenu extends StatefulWidget {
   @override
@@ -15,6 +16,43 @@ class GridViewMenu extends StatefulWidget {
 class _GridViewMenuState extends State<GridViewMenu> {
   List<RestaurantFood> _foods = [];
   List<RestaurantDrink> _drinks = [];
+  List<Order> _orders = [];
+
+  String _calculateTotalPrice() {
+    int totalPrice = 0;
+    for (Order order in _orders) {
+      int price = int.parse(order.price);
+      int quantity = order.quantity;
+      totalPrice += price * quantity;
+    }
+    return totalPrice.toString();
+  }
+
+  void _placeOrder(dynamic menu) {
+    setState(() {
+      Order order = Order(
+        menuName: menu.menu_name,
+        price: menu.price,
+        quantity: 1,
+      );
+      _orders.add(order);
+    });
+
+    String totalPrice = _calculateTotalPrice();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content:
+            Text('Pesanan berhasil ditambahkan!\n Total Belanja : $totalPrice'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  void _removeOrder(Order order) {
+    setState(() {
+      _orders.remove(order);
+    });
+  }
 
   @override
   void initState() {
@@ -111,7 +149,6 @@ class _GridViewMenuState extends State<GridViewMenu> {
               const SizedBox(
                 height: 30.0,
               ),
-
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -147,7 +184,6 @@ class _GridViewMenuState extends State<GridViewMenu> {
               const SizedBox(
                 height: 30.0,
               ),
-
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -158,7 +194,6 @@ class _GridViewMenuState extends State<GridViewMenu> {
                 children:
                     _drinks.map((menu) => _buildDrinkItemCard(menu)).toList(),
               ),
-              // ...your existing code...
             ],
           ),
         ),
@@ -168,7 +203,9 @@ class _GridViewMenuState extends State<GridViewMenu> {
 
   Widget _buildFoodItemCard(RestaurantFood menu) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        _placeOrder(menu);
+      },
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,7 +279,9 @@ class _GridViewMenuState extends State<GridViewMenu> {
 
   Widget _buildDrinkItemCard(RestaurantDrink menu) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        _placeOrder(menu);
+      },
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

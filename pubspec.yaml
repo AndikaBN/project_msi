@@ -39,7 +39,8 @@ dependencies:
   footer: ^0.0.4
   http: ^1.0.0
   carousel_slider: ^4.2.1
-
+  flutter_animated_button: ^2.0.3
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
